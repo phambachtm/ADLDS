@@ -1,3 +1,10 @@
 # ADLDS
 backup data ADLDS
 Mô hình triển khai sẽ bao gồm 1 máy chủ window server cài ADLDS role & feature của hệ thống cũ, 2 máy chủ window server cài ADLDS role & feature để làm hệ thống mới.
+quy trình thực hiện: Tại ADLDS từ hệ thống cũ sẽ tiến hành backup dữ liệu , sau đó file backup này sẽ được restore trên instance server ADLDS 1 , sau đó từ server ADLDS 2 sẽ tiến hành tạo instance replicate từ instance đã được restore từ instance ADLDS1 thành công.
+Cần chuẩn bị trước khi tiến hành backup và đồng bộ dữ liệu trên 2 server:
+  mở thông kết nối giữa 2 server ADLDS 1 và 2 qua port 135 và dải port dùng để thiết lập kết nối phục vụ replicate giữa 2 server, mở thông port trên cả 2 server:
+  trên 2 server không cần thiết phải chung miền, trong mô hình hiện tại cả 2 server đều không join vào miền nào, tuy nhiên cần phải đảm bảo rằng 2 server này có thể kết nối được với nhau ( cùng chung dải mang hoặc có thể thông mạng được tới nhau)
+  trên 2 máy cần phi có tài khoản gióng nhau từ username đến passworld được tạo bên trong máy đó và có chung quyền admin hoặc quyền cho việc thao tác trên dịch vụ.
+  cần phải xác định được những instance nào đang chạy trên máy đó, và instance nào sẽ được sử dụng để tiến hành backup dữ liệu để retore sang hệ thống mới. Ta có thể xác định instance sẽ được sử dụng bằng cách sau:
+  vào trong control  panel và kiểm tra instance nào đang chạy ở trong phần program hoặc kiểm tra bằng lệnh trong cmd bằng lệnh dsdbutil
