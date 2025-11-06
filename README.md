@@ -1,2 +1,0 @@
-# ADLDS
-backup data ADLDS
